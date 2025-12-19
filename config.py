@@ -42,7 +42,6 @@ _C.MODEL.TYPE = 'cswin'
 _C.MODEL.NAME = 'cswin_tiny_224'
 # Checkpoint to resume, could be overwritten by command line argument
 _C.MODEL.PRETRAIN_CKPT = './pretrained_ckpt/cswin_tiny_224.pth'
-# _C.MODEL.PRETRAIN_CKPT = '/mnt/f/pycode/CSWin-UNet-main/pretrained_ckpt/cswin_tiny_224.pth'
 _C.MODEL.RESUME = ''
 # Number of classes, overwritten in data preparation
 _C.MODEL.NUM_CLASSES = 1000
