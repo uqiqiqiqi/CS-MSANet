@@ -5,7 +5,7 @@ import random
 import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
-from networks.vision_transformer import CSwinUnet as ViT_seg
+from networks.vision_transformer import CSwinMSA as ViT_seg
 from trainer import trainer_synapse
 from config import get_config
 
