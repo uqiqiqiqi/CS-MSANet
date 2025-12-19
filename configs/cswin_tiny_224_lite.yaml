@@ -2,7 +2,7 @@ MODEL:
   TYPE: cswin
   NAME: cswin_tiny_224
   DROP_PATH_RATE: 0.2
-  PRETRAIN_CKPT: "/root/autodl-tmp/cswin-unet/pretrained_ckpt/cswin_tiny_224.pth"
+  PRETRAIN_CKPT: "./pretrained_ckpt/cswin_tiny_224.pth"
   CSWIN:
     EMBED_DIM: 64
     DEPTH: [ 1, 2, 9, 1 ]
