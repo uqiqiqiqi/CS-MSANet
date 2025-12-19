@@ -8,20 +8,20 @@ import logging
 
 import torch
 import torch.nn as nn
-from .cswin_unet import CSWinTransformer
+from .cswin_msa import CSWinTransformer
 
 # from dynamic_tanh import DynamicTanh
 
 logger = logging.getLogger(__name__)
 
 
-class CSwinUnet(nn.Module):
+class CSwinMSA(nn.Module):
     def __init__(self, config, img_size=224, num_classes=21843, zero_head=False, vis=False):
-        super(CSwinUnet, self).__init__()
+        super(CSwinMSA, self).__init__()
         self.num_classes = num_classes
         self.zero_head = zero_head
         self.config = config
-        self.cswin_unet = CSWinTransformer(img_size=config.DATA.IMG_SIZE,
+        self.cswin_msa = CSWinTransformer(img_size=config.DATA.IMG_SIZE,
                                            patch_size=config.MODEL.CSWIN.PATCH_SIZE,
                                            in_chans=config.MODEL.CSWIN.IN_CHANS,
                                            num_classes=self.num_classes,
@@ -36,8 +36,8 @@ class CSwinUnet(nn.Module):
                                            drop_path_rate=config.MODEL.DROP_PATH_RATE,
                                            # norm_layer=DynamicTanh
                                            )
-        torch.save(self.cswin_unet.state_dict(), 'cswin_unet.pth')
-        print("CSWinUnet model is saved.")
+        torch.save(self.cswin_msa.state_dict(), 'cswin_msa.pth')
+        print("CSWinMSA model is saved.")
 
     def forward(self, x):
         if x.dim() == 3:
@@ -45,7 +45,7 @@ class CSwinUnet(nn.Module):
         if x.size(1) == 1:
             x = x.expand(-1, 3, -1, -1)
 
-        logits = self.cswin_unet(x)
+        logits = self.cswin_msa(x)
         return logits
 
     def load_from(self, config):
@@ -56,7 +56,7 @@ class CSwinUnet(nn.Module):
             device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
             pretrained_dict = torch.load(pretrained_path, map_location=device)
             pretrained_dict = pretrained_dict['state_dict_ema']
-            model_dict = self.cswin_unet.state_dict()
+            model_dict = self.cswin_msa.state_dict()
             full_dict = copy.deepcopy(pretrained_dict)
             for k, v in pretrained_dict.items():
                 if "stage" in k:
@@ -69,6 +69,6 @@ class CSwinUnet(nn.Module):
                                                                                   model_dict[k].shape))
                         del full_dict[k]
 
-            msg = self.cswin_unet.load_state_dict(full_dict, strict=False)
+            msg = self.cswin_msa.load_state_dict(full_dict, strict=False)
         else:
             print("none pretrain")
