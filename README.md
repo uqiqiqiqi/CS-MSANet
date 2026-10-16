@@ -10,7 +10,7 @@ python test.py --dataset Synapse --cfg configs/cswin_tiny_224_lite.yaml --is_sav
 ```
 ## datasets
 ```bash
-he ISIC18 dataset can be found here {https://challenge.isic-archive.com/data/}.
+The ISIC18 dataset can be found here {https://challenge.isic-archive.com/data/}.
 The ACDC dataset can be found here {https://www.creatis.insa-lyon.fr/Challenge/acdc/}.
 The Synapse dataset can be found here {https://www.synapse.org/#!Synapse:syn3193805/wiki/217789}.
 ```
